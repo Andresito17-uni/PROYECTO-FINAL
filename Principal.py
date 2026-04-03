@@ -1,3 +1,4 @@
-##ropasrosapsada
-
-hoalsdlasdoasld
+##proyecto 
+empezar = True
+while empezar:
+    
