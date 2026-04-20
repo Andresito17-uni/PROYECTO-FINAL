@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Reservas{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'gestion_inicio' %}">Reserva RR Admin</a>
+            <div class="collapse navbar-collapse show">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'portal_inicio' %}">Ver portal cliente</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'usuarios_lista' %}">Usuarios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'complejos_lista' %}">Complejos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'crear_complejo' %}">Nuevo complejo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'canchas_lista' %}">Canchas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'crear_cancha' %}">Nueva cancha</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'crear_tipo_cancha' %}">Nuevo tipo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'reservas_lista' %}">Reservas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'pagos_lista' %}">Pagos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalogos_lista' %}">Catalogos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout_usuario' %}">Cerrar sesion</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

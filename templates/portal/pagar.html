@@ -1,0 +1,29 @@
+{% extends 'portal/base_portal.html' %}
+
+{% block title %}Pagar reserva | Reserva RR{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="glass-panel p-4">
+            <h2 class="text-white mb-2">Pagar reserva #{{ reserva.id }}</h2>
+            <p class="text-light-emphasis mb-4">
+                Cancha: {{ reserva.cancha }} | Fecha: {{ reserva.fecha }} | Hora: {{ reserva.hora_inicio }} - {{ reserva.hora_fin }}
+            </p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label text-light">Metodo de pago</label>
+                    {{ form.metodo_pago }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-light">Monto</label>
+                    {{ form.monto_pago }}
+                </div>
+                <button type="submit" class="btn btn-primary">Confirmar pago</button>
+                <a href="{% url 'mi_panel' %}" class="btn btn-outline-light">Volver</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

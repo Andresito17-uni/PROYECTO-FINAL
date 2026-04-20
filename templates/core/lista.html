@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo }} | Reserva RR{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">{{ titulo }}</h1>
+    {% if tipo == 'reservas' %}
+        <a href="{% url 'crear_reserva' %}" class="btn btn-primary">Nueva reserva</a>
+    {% elif tipo == 'pagos' %}
+        <a href="{% url 'crear_pago' %}" class="btn btn-primary">Nuevo pago</a>
+    {% endif %}
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    {% for columna in columnas %}
+                        <th>{{ columna }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for fila in filas %}
+                    <tr>
+                        {% if tipo == 'usuarios' %}
+                            <td>{{ fila.nombre }}</td>
+                            <td>{{ fila.apellido }}</td>
+                            <td>{{ fila.email }}</td>
+                            <td>{{ fila.telefono }}</td>
+                        {% elif tipo == 'complejos' %}
+                            <td>{{ fila.nombre_com }}</td>
+                            <td>{{ fila.ubicacion_com }}</td>
+                            <td>{{ fila.usuario }}</td>
+                        {% elif tipo == 'canchas' %}
+                            <td>{{ fila.nombre_cancha }}</td>
+                            <td>{{ fila.complejo }}</td>
+                            <td>{{ fila.tipo_cancha }}</td>
+                            <td>{{ fila.capacidad_can }}</td>
+                            <td>${{ fila.precio_hora }}</td>
+                            <td>{{ fila.disponible|yesno:"Si,No" }}</td>
+                        {% elif tipo == 'reservas' %}
+                            <td>{{ fila.usuario }}</td>
+                            <td>{{ fila.cancha }}</td>
+                            <td>{{ fila.fecha }}</td>
+                            <td>{{ fila.hora_inicio }} - {{ fila.hora_fin }}</td>
+                            <td>{{ fila.estado_reserva }}</td>
+                        {% elif tipo == 'pagos' %}
+                            <td>{{ fila.monto }}</td>
+                            <td>{{ fila.fecha_pago }}</td>
+                            <td>{{ fila.monto_pago }}</td>
+                            <td>{{ fila.estado_pago }}</td>
+                            <td>{{ fila.metodo_pago }}</td>
+                        {% endif %}
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="{{ columnas|length }}" class="text-center text-muted py-4">
+                            No hay datos registrados en esta seccion.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

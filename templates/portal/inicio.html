@@ -1,0 +1,184 @@
+{% extends 'portal/base_portal.html' %}
+
+{% block title %}Reserva RR | Portal de clientes{% endblock %}
+
+{% block content %}
+<section class="hero-futuro hero-main mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+            <span class="badge text-bg-primary mb-3">Plataforma profesional de reservas deportivas</span>
+            <h1 class="display-4 fw-bold text-white mb-3">
+                La forma moderna de reservar canchas en segundos
+            </h1>
+            <p class="text-light-emphasis mb-4">
+                Reserva RR impulsa complejos deportivos con tecnologia, trazabilidad y una experiencia premium.
+                Facilitamos la vida del cliente con filtros inteligentes, horarios claros y pagos sencillos.
+            </p>
+            <div class="d-flex gap-2 flex-wrap mb-3">
+                <a href="{% url 'portal_canchas' %}" class="btn btn-primary btn-lg">Explorar canchas</a>
+                <a href="{% url 'portal_canchas' %}?solo_disponibles=on" class="btn btn-outline-light btn-lg">Ver disponibles</a>
+                {% if not usuario_activo %}
+                    <a href="{% url 'login_usuario' %}" class="btn btn-info btn-lg">Iniciar sesion</a>
+                {% endif %}
+            </div>
+            <div class="d-flex gap-3 flex-wrap">
+                <span class="mini-kpi">+{{ total_complejos }} complejos</span>
+                <span class="mini-kpi">+{{ total_canchas }} canchas activas</span>
+                <span class="mini-kpi">+{{ total_reservas }} reservas registradas</span>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="glass-panel p-4">
+                <h5 class="text-white mb-3">Estadisticas en tiempo real</h5>
+                <div class="metric-item">
+                    <span>Canchas activas</span>
+                    <strong>{{ total_canchas }}</strong>
+                </div>
+                <div class="metric-item">
+                    <span>Complejos aliados</span>
+                    <strong>{{ total_complejos }}</strong>
+                </div>
+                <div class="metric-item">
+                    <span>Reservas de hoy</span>
+                    <strong>{{ reservas_hoy }}</strong>
+                </div>
+                <div class="metric-item">
+                    <span>Usuarios activos</span>
+                    <strong>{{ total_usuarios }}</strong>
+                </div>
+                <hr class="border-light-subtle">
+                <p class="mb-0 text-light-emphasis">
+                    {% if usuario_activo %}
+                        Navegando como: <strong class="text-white">{{ usuario_activo }}</strong>
+                    {% else %}
+                        Inicia sesion para vivir la experiencia personalizada.
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="glass-panel p-4 mb-4">
+    <div class="row g-3 text-center">
+        <div class="col-md-3">
+            <div class="kpi-block">
+                <h3>{{ total_canchas }}</h3>
+                <p>Canchas disponibles</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="kpi-block">
+                <h3>{{ total_complejos }}</h3>
+                <p>Complejos aliados</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="kpi-block">
+                <h3>{{ total_reservas }}</h3>
+                <p>Reservas registradas</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="kpi-block">
+                <h3>{{ total_usuarios }}</h3>
+                <p>Usuarios en plataforma</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-white h3 mb-0">Canchas destacadas</h2>
+        <a href="{% url 'portal_canchas' %}" class="btn btn-outline-info">Ver catalogo completo</a>
+    </div>
+    <div class="row g-3">
+        {% for cancha in canchas_destacadas %}
+            <div class="col-md-4">
+                <article class="glass-panel h-100 p-3">
+                    <h5 class="text-white">{{ cancha.nombre_cancha }}</h5>
+                    <p class="mb-1 text-light-emphasis">{{ cancha.complejo }}</p>
+                    <p class="mb-1 text-light-emphasis">Tipo: {{ cancha.tipo_cancha }}</p>
+                    <p class="mb-1 text-light-emphasis">Capacidad: {{ cancha.capacidad_can }} jugadores</p>
+                    <p class="mb-0 text-cyan fw-semibold">${{ cancha.precio_hora }} / hora</p>
+                    <a href="{% url 'crear_reserva_cliente' %}?cancha={{ cancha.id }}" class="btn btn-sm btn-outline-info mt-3">
+                        Reservar esta cancha
+                    </a>
+                </article>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="glass-panel p-4 text-light-emphasis">No hay canchas cargadas todavia.</div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-lg-6">
+        <div class="glass-panel p-4 h-100">
+            <h4 class="text-white mb-3">Sobre nosotros</h4>
+            <p class="text-light-emphasis mb-0">
+                Somos una plataforma creada para profesionalizar la gestion deportiva.
+                Conectamos jugadores, dueños y administradores en una sola experiencia:
+                rapida, elegante y confiable.
+            </p>
+            <a href="{% url 'portal_nosotros' %}" class="btn btn-outline-info mt-3">Conocer nuestra historia</a>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="glass-panel p-4 h-100">
+            <h4 class="text-white mb-3">Lo que ofrecemos</h4>
+            <ul class="text-light-emphasis offer-list mb-0">
+                <li>Catalogo de canchas con filtros por tipo, precio y disponibilidad.</li>
+                <li>Reserva directa por cancha y control de estado en tiempo real.</li>
+                <li>Pagos asociados a reservas para trazabilidad completa.</li>
+                <li>Paneles separados para cliente, dueño y administrador.</li>
+                <li>Interfaz moderna diseñada para conversion y fidelizacion.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="glass-panel p-4 h-100">
+            <h5 class="text-white">1. Explora</h5>
+            <p class="text-light-emphasis mb-0">
+                Busca cancha por tipo, disponibilidad o precio para encontrar la opcion ideal.
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="glass-panel p-4 h-100">
+            <h5 class="text-white">2. Reserva</h5>
+            <p class="text-light-emphasis mb-0">
+                Elige fecha y horario en segundos con un flujo claro e intuitivo.
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="glass-panel p-4 h-100">
+            <h5 class="text-white">3. Disfruta</h5>
+            <p class="text-light-emphasis mb-0">
+                Gestiona tus pagos e historial y vuelve a reservar con un clic.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="glass-panel p-4">
+    <div class="row align-items-center g-3">
+        <div class="col-lg-8">
+            <h2 class="text-white h3 mb-2">¿Listo para reservar tu proxima cancha?</h2>
+            <p class="text-light-emphasis mb-0">
+                Empieza hoy y descubre una experiencia profesional, moderna y centrada en el cliente.
+            </p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+            <a href="{% url 'portal_canchas' %}" class="btn btn-primary">Empezar ahora</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

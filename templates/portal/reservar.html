@@ -1,0 +1,42 @@
+{% extends 'portal/base_portal.html' %}
+
+{% block title %}Reservar | Reserva RR{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="glass-panel p-4">
+            <h2 class="text-white mb-1">Nueva reserva</h2>
+            <p class="text-light-emphasis">
+                Estas reservando como <strong>{{ usuario_activo }}</strong>. El estado inicial sera "Pendiente".
+            </p>
+            {% if cancha_preseleccionada %}
+                <div class="alert alert-info border-0">
+                    Llegaste desde el catalogo de canchas. Puedes mantener la cancha seleccionada o cambiarla.
+                </div>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                {% if cancha_preseleccionada %}
+                    <input type="hidden" name="cancha_preseleccionada" value="{{ cancha_preseleccionada }}">
+                {% endif %}
+                <div class="row g-3">
+                    {% for field in form %}
+                        <div class="col-md-6">
+                            <label class="form-label text-light">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <small class="text-danger">{{ field.errors|striptags }}</small>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Confirmar solicitud</button>
+                    <a href="{% url 'mi_panel' %}" class="btn btn-outline-light">Volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

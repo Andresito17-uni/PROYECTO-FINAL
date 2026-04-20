@@ -1,0 +1,152 @@
+body {
+    background: #f3f5f8;
+}
+
+.navbar-brand {
+    letter-spacing: 0.5px;
+}
+
+.card {
+    border: 0;
+    border-radius: 14px;
+    box-shadow: 0 8px 22px rgba(12, 24, 61, 0.07);
+}
+
+.card-metrica h2 {
+    font-weight: 700;
+}
+
+table th {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+}
+
+.portal-body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 10% 20%, rgba(0, 123, 255, 0.28), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(111, 66, 193, 0.25), transparent 30%),
+        #080c1c;
+    color: #f8f9fa;
+}
+
+.portal-bg-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        120deg,
+        rgba(0, 255, 225, 0.06),
+        rgba(0, 123, 255, 0.02),
+        rgba(111, 66, 193, 0.08)
+    );
+}
+
+.portal-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background: rgba(8, 12, 28, 0.62);
+    border-bottom: 1px solid rgba(128, 139, 255, 0.2);
+}
+
+.portal-logo {
+    color: #9ae9ff;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.portal-link {
+    color: #dee2ff;
+    text-decoration: none;
+}
+
+.portal-link:hover {
+    color: #7ad7ff;
+}
+
+.hero-futuro {
+    padding: 2rem;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(8, 15, 45, 0.8), rgba(32, 6, 73, 0.65));
+    border: 1px solid rgba(130, 152, 255, 0.25);
+}
+
+.hero-main {
+    padding: 2.75rem;
+}
+
+.glass-panel {
+    border-radius: 18px;
+    background: rgba(20, 24, 46, 0.72);
+    border: 1px solid rgba(153, 177, 255, 0.25);
+    box-shadow: 0 14px 30px rgba(1, 7, 31, 0.45);
+}
+
+.metric-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.55rem 0;
+    color: #cdd7ff;
+}
+
+.metric-item strong {
+    color: #8df0ff;
+}
+
+.text-cyan {
+    color: #7be8ff;
+}
+
+.mini-kpi {
+    display: inline-block;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(123, 232, 255, 0.12);
+    color: #b6f0ff;
+    font-size: 0.85rem;
+}
+
+.kpi-block h3 {
+    color: #9ff3ff;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.kpi-block p {
+    color: #cdd7ff;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+.offer-list li {
+    margin-bottom: 0.45rem;
+}
+
+.portal-body .form-control,
+.portal-body .form-select {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(108, 117, 255, 0.28);
+}
+
+.portal-footer {
+    background: rgba(4, 8, 22, 0.85);
+    border-top: 1px solid rgba(130, 152, 255, 0.25);
+}
+
+.footer-link {
+    color: #cdd7ff;
+    text-decoration: none;
+    margin-bottom: 0.35rem;
+}
+
+.footer-link:hover {
+    color: #7be8ff;
+}

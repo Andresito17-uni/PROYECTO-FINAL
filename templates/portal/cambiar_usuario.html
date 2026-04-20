@@ -1,0 +1,22 @@
+{% extends 'portal/base_portal.html' %}
+
+{% block title %}Cambiar usuario | Reserva RR{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="glass-panel p-4">
+            <h2 class="text-white mb-3">Cambiar de usuario</h2>
+            <p class="text-light-emphasis">
+                Este selector permite simular sesiones de distintos clientes para pruebas y demostraciones.
+            </p>
+            <form method="post">
+                {% csrf_token %}
+                <label class="form-label text-light">Usuario activo</label>
+                {{ form.usuario }}
+                <button type="submit" class="btn btn-primary mt-3">Entrar al panel</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Catalogos | Reserva RR{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Catalogos del sistema</h1>
+
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header bg-white"><strong>Roles</strong></div>
+            <ul class="list-group list-group-flush">
+                {% for item in roles %}
+                    <li class="list-group-item">{{ item.nombre_rol }}</li>
+                {% empty %}
+                    <li class="list-group-item text-muted">Sin registros.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header bg-white"><strong>Usuario - Rol</strong></div>
+            <ul class="list-group list-group-flush">
+                {% for item in usuarios_roles %}
+                    <li class="list-group-item">{{ item.usuario }} - {{ item.rol }}</li>
+                {% empty %}
+                    <li class="list-group-item text-muted">Sin registros.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header bg-white"><strong>Tipos de cancha</strong></div>
+            <ul class="list-group list-group-flush">
+                {% for item in tipos_canchas %}
+                    <li class="list-group-item">{{ item.nombre }}</li>
+                {% empty %}
+                    <li class="list-group-item text-muted">Sin registros.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header bg-white"><strong>Estados de reserva</strong></div>
+            <ul class="list-group list-group-flush">
+                {% for item in estados_reserva %}
+                    <li class="list-group-item">{{ item.estado }}</li>
+                {% empty %}
+                    <li class="list-group-item text-muted">Sin registros.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header bg-white"><strong>Estados de pago</strong></div>
+            <ul class="list-group list-group-flush">
+                {% for item in estados_pago %}
+                    <li class="list-group-item">{{ item.estado }}</li>
+                {% empty %}
+                    <li class="list-group-item text-muted">Sin registros.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header bg-white"><strong>Metodos de pago</strong></div>
+            <ul class="list-group list-group-flush">
+                {% for item in metodos_pago %}
+                    <li class="list-group-item">{{ item.nombre }}</li>
+                {% empty %}
+                    <li class="list-group-item text-muted">Sin registros.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
