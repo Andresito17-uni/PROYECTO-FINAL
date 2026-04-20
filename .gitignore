@@ -1,5 +1,0 @@
-# Ignorar entorno virtual y base local
-.venv/
-__pycache__/
-*.pyc
-db.sqlite3
