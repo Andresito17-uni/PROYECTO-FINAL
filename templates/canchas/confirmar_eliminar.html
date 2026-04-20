@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block titulo %}Eliminar Cancha{% endblock %}
+{% block contenido %}
+<div class="confirm-wrapper">
+  <div class="confirm-card">
+    <div class="confirm-icon">⚠️</div>
+    <h2>¿Eliminar esta cancha?</h2>
+    <p>Estás a punto de eliminar: <strong>{{ objeto }}</strong></p>
+    <p class="confirm-warning">Se eliminarán también todas las reservas asociadas.</p>
+    <form method="POST" class="confirm-actions">
+      {% csrf_token %}
+      <a href="{% url 'lista_canchas' %}" class="btn-ghost">Cancelar</a>
+      <button type="submit" class="btn-danger-solid">Sí, eliminar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

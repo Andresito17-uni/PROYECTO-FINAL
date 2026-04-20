@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block titulo %}Dashboard{% endblock %}
+{% block contenido %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Dashboard</h1>
+    <p class="page-subtitle">Bienvenido, {{ usuario.first_name|default:usuario.username }}</p>
+  </div>
+  <a href="{% url 'crear_reserva' %}" class="btn-primary">
+    <i class="bi bi-plus-lg"></i> Nueva Reserva
+  </a>
+</div>
+
+<!-- TARJETAS DE ESTADÍSTICAS -->
+<div class="stats-grid">
+  <div class="stat-card stat-green">
+    <div class="stat-icon"><i class="bi bi-calendar-check"></i></div>
+    <div class="stat-info">
+      <div class="stat-number">{{ total_reservas }}</div>
+      <div class="stat-label">Mis Reservas</div>
+    </div>
+  </div>
+  <div class="stat-card stat-blue">
+    <div class="stat-icon"><i class="bi bi-award"></i></div>
+    <div class="stat-info">
+      <div class="stat-number">{{ total_canchas }}</div>
+      <div class="stat-label">Canchas Disponibles</div>
+    </div>
+  </div>
+  <div class="stat-card stat-orange">
+    <div class="stat-icon"><i class="bi bi-building"></i></div>
+    <div class="stat-info">
+      <div class="stat-number">{{ total_complejos }}</div>
+      <div class="stat-label">Complejos</div>
+    </div>
+  </div>
+</div>
+
+<!-- ÚLTIMAS RESERVAS -->
+<div class="section-card">
+  <div class="section-header">
+    <h2><i class="bi bi-clock-history"></i> Mis últimas reservas</h2>
+    <a href="{% url 'lista_reservas' %}" class="btn-ghost">Ver todas</a>
+  </div>
+
+  {% if mis_reservas %}
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Cancha</th>
+          <th>Fecha</th>
+          <th>Horario</th>
+          <th>Estado</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for reserva in mis_reservas %}
+        <tr>
+          <td class="table-id">{{ reserva.pk }}</td>
+          <td><strong>{{ reserva.id_cancha.nombre_cancha }}</strong><br><small>{{ reserva.id_cancha.id_complejo.nombre_com }}</small></td>
+          <td>{{ reserva.fecha|date:"d/m/Y" }}</td>
+          <td>{{ reserva.hora_inicio|time:"H:i" }} – {{ reserva.hora_fin|time:"H:i" }}</td>
+          <td>
+            <span class="badge badge-{% if reserva.id_estado_res.estado == 'Confirmada' %}green{% elif reserva.id_estado_res.estado == 'Cancelada' %}red{% else %}yellow{% endif %}">
+              {{ reserva.id_estado_res.estado|default:"Pendiente" }}
+            </span>
+          </td>
+          <td>
+            <a href="{% url 'detalle_reserva' reserva.pk %}" class="btn-icon" title="Ver detalle">
+              <i class="bi bi-eye"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-icon">📅</div>
+    <p>No tienes reservas todavía.</p>
+    <a href="{% url 'crear_reserva' %}" class="btn-primary">Hacer mi primera reserva</a>
+  </div>
+  {% endif %}
+</div>
+
+<!-- ACCESO RÁPIDO -->
+<div class="quick-access-grid">
+  <a href="{% url 'lista_canchas' %}" class="quick-card">
+    <i class="bi bi-award"></i>
+    <span>Ver Canchas</span>
+  </a>
+  <a href="{% url 'lista_complejos' %}" class="quick-card">
+    <i class="bi bi-building"></i>
+    <span>Ver Complejos</span>
+  </a>
+  <a href="{% url 'crear_reserva' %}" class="quick-card quick-card-accent">
+    <i class="bi bi-plus-circle"></i>
+    <span>Nueva Reserva</span>
+  </a>
+</div>
+{% endblock %}

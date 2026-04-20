@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block titulo %}Canchas{% endblock %}
+{% block contenido %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Canchas Disponibles</h1>
+    <p class="page-subtitle">{{ canchas.count }} canchas en el sistema</p>
+  </div>
+  <a href="{% url 'crear_cancha' %}" class="btn-primary"><i class="bi bi-plus-lg"></i> Nueva Cancha</a>
+</div>
+<div class="cards-grid">
+  {% for cancha in canchas %}
+  <div class="item-card {% if not cancha.activa %}item-card-inactive{% endif %}">
+    <div class="item-card-header">
+      <div class="item-card-icon cancha-icon">🏟️</div>
+      <div class="item-card-actions">
+        <a href="{% url 'editar_cancha' cancha.pk %}" class="btn-icon"><i class="bi bi-pencil"></i></a>
+        <a href="{% url 'eliminar_cancha' cancha.pk %}" class="btn-icon btn-danger"><i class="bi bi-trash"></i></a>
+      </div>
+    </div>
+    <h3 class="item-card-title">{{ cancha.nombre_cancha }}</h3>
+    <p class="item-card-sub"><i class="bi bi-building"></i> {{ cancha.id_complejo.nombre_com }}</p>
+    <p class="item-card-sub"><i class="bi bi-tag"></i> {{ cancha.id_tipo_can.nombre|default:"Sin tipo" }}</p>
+    <div class="item-card-stat">
+      <span class="price-tag">${{ cancha.precio_hora }}/hora</span>
+      <span class="badge {% if cancha.activa %}badge-green{% else %}badge-red{% endif %}">
+        {% if cancha.activa %}Activa{% else %}Inactiva{% endif %}
+      </span>
+    </div>
+    <a href="{% url 'crear_reserva' %}?cancha={{ cancha.pk }}" class="btn-reserve">
+      <i class="bi bi-calendar-plus"></i> Reservar
+    </a>
+  </div>
+  {% empty %}
+  <div class="empty-state full-width">
+    <div class="empty-icon">🏅</div>
+    <p>No hay canchas registradas.</p>
+    <a href="{% url 'crear_cancha' %}" class="btn-primary">Agregar primera cancha</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

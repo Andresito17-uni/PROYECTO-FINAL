@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block titulo %}Eliminar{% endblock %}
+{% block contenido %}
+<div class="confirm-wrapper">
+  <div class="confirm-card">
+    <div class="confirm-icon">⚠️</div>
+    <h2>¿Eliminar este registro?</h2>
+    <p>Estás a punto de eliminar: <strong>{{ objeto }}</strong></p>
+    <p class="confirm-warning">Esta acción no se puede deshacer.</p>
+    <form method="POST" class="confirm-actions">
+      {% csrf_token %}
+      <a href="javascript:history.back()" class="btn-ghost">Cancelar</a>
+      <button type="submit" class="btn-danger-solid">Sí, eliminar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

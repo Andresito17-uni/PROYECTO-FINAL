@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block titulo %}Usuarios{% endblock %}
+{% block contenido %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Usuarios del Sistema</h1>
+    <p class="page-subtitle">{{ usuarios.count }} usuarios registrados</p>
+  </div>
+</div>
+<div class="section-card">
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr><th>#</th><th>Usuario</th><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Rol</th><th>Activo</th></tr>
+      </thead>
+      <tbody>
+        {% for u in usuarios %}
+        <tr>
+          <td class="table-id">{{ u.pk }}</td>
+          <td><strong>{{ u.username }}</strong></td>
+          <td>{{ u.get_full_name|default:"—" }}</td>
+          <td>{{ u.email|default:"—" }}</td>
+          <td>{{ u.telefono|default:"—" }}</td>
+          <td><span class="badge {% if u.is_staff %}badge-blue{% else %}badge-gray{% endif %}">{% if u.is_staff %}Admin{% else %}Cliente{% endif %}</span></td>
+          <td><span class="badge {% if u.is_active %}badge-green{% else %}badge-red{% endif %}">{% if u.is_active %}Sí{% else %}No{% endif %}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
